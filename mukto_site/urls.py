@@ -1,5 +1,5 @@
 """
-URL configuration for mukto_site project.
+URL configuration for OLRN_site project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.2/topics/http/urls/
@@ -17,6 +17,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from . import views # Import the views module
+
 urlpatterns = [
+    path('', views.index), # Add our index view to the URL patterns
     path('admin/', admin.site.urls),
 ]
