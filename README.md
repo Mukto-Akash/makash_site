@@ -1,4 +1,4 @@
-# makash_site
+# mukto_site
 Projects in Python django
 
 # Description
