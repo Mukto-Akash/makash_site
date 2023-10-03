@@ -18,8 +18,10 @@ from django.contrib import admin
 from django.urls import path
 
 from . import views # Import the views module
+from blog import views as vw
 
 urlpatterns = [
     path('', views.index), # Add our index view to the URL patterns
     path('admin/', admin.site.urls),
+    path('blog', vw.blog),
 ]
