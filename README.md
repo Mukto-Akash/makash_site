@@ -27,3 +27,8 @@ All packages used are in requirements.txt created using pip freeze
 
 # Apps Created
 - blog
+## Classes:
+- Post: for blog posts, contains subclass Meta, methods: __str__, ForeignKey(): author, choices, SlugField,
+- Meta: subclass of Post for sorting/ordering
+- PostAdmin: for list_display, search_fields, list_filter, preopoulated_fields,
+ 
