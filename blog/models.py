@@ -1,7 +1,8 @@
 """"blog/models.py"""
 
 from django.db import models
-from django.conf import settings  # Imports Django's loaded settings
+from django.conf import settings
+from django.db.models.query import QuerySet  # Imports Django's loaded settings
 from django.utils import timezone
 
 # Create your models here.
@@ -108,3 +109,46 @@ class Post(models.Model):
 
     def __str__(self):
         return str(self.title)
+
+class CommentManager(models.Manager):
+    """Comment Manager"""
+    def get_queryset(self) -> QuerySet:
+        queryset = super().get_queryset()
+        return queryset.exclude(approved = False) # Exclude unapproved comments
+
+class Comment(models.Model): #new
+    """Comments under the blogs app"""
+    post = models.ForeignKey(
+        Post,
+        on_delete = models.CASCADE,
+        related_name='comments',
+        null=False,
+    )
+    name=models.CharField(
+        max_length=255,
+        null = False,
+    )
+    email=models.EmailField(
+        max_length=254,
+        null=False,
+    )
+    text=models.TextField(
+        max_length=500,
+    )
+    approved=models.BooleanField(
+        default=False,
+    )
+    created=models.DateTimeField(
+        auto_now_add=True,
+    )
+    updated=models.DateTimeField(
+        auto_now=True,
+    )
+    objects = CommentManager()
+
+    def __str__(self):
+        return str(self.text[:50])
+       
+    class Meta:
+        """Meta for ordering"""
+        ordering = ['-created']
