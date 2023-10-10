@@ -11,8 +11,8 @@ class PostAdmin(admin.ModelAdmin):
         'title',
         'created',
         'updated',
-        'author',
-        'status',
+        #'author',
+        #'status',
     )
 
     search_fields = (
