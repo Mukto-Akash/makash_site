@@ -1,9 +1,25 @@
-#blog/models.py
+""""blog/models.py"""
 
 from django.db import models
 from django.conf import settings  # Imports Django's loaded settings
 
 # Create your models here.
+
+class Topic(models.Model):
+    """Topic class"""
+    name = models.CharField(
+        max_length = 50,
+        unique = True # No dublicates!
+    )
+    slug = models.SlugField(unique=True)
+
+    def __str__(self):
+        return str(self.name)
+
+    class Meta:
+        """Meta"""
+        ordering = ['name']
+
 class Post(models.Model):
     """
     Represents a blog post
@@ -15,6 +31,10 @@ class Post(models.Model):
         (PUBLISHED, 'Published')
     ]
     title = models.CharField(max_length=255)
+    topics = models.ManyToManyField(
+        Topic,
+        related_name='blog_posts'
+    )
     content = models.TextField()
     created = models.DateTimeField(auto_now_add=True)  # Sets on create
     updated = models.DateTimeField(auto_now=True)  # Updates on each save
@@ -42,10 +62,12 @@ class Post(models.Model):
     )
 
     class Meta:
+        """Meta"""
         # Sort by the `created` field. The `-` prefix
         # specifies to order in descending/reverse order.
         # Otherwise, it will be in ascending order.
         ordering = ['-created']
 
+
     def __str__(self):
-        return self.title
+        return str(self.title)
