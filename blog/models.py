@@ -2,6 +2,7 @@
 
 from django.db import models
 from django.conf import settings  # Imports Django's loaded settings
+from django.utils import timezone
 
 # Create your models here.
 
@@ -19,6 +20,23 @@ class Topic(models.Model):
     class Meta:
         """Meta"""
         ordering = ['name']
+
+class PostManager(models.Manager):
+    """limited to records that have not been deleted"""
+    def get_queryset(self):
+        """Exclude deleted"""
+        queryset = super().get_queryset()  # Get the initial queryset
+        return queryset.exclude(deleted=True)  # Exclude deleted records
+
+class PostQuerySet(models.QuerySet):
+    """blog posts can either be published or in draft mode"""
+    def published(self):
+        """returns published"""
+        return self.filter(status=self.model.PUBLISHED)
+
+    def drafts(self):
+        """returns drafts"""
+        return self.filter(status=self.model.DRAFT)
 
 class Post(models.Model):
     """
@@ -60,6 +78,15 @@ class Post(models.Model):
         help_text='The date & time this article was published',
         unique_for_date='published',  # Slug is unique for publication date
     )
+    deleted = models.BooleanField()
+    objects = PostManager()
+    objects = PostQuerySet.as_manager()
+
+    def publish(self):
+        """Publishes this post"""
+        self.status = self.PUBLISHED
+        self.published = timezone.now()  # The current datetime with timezone
+
 
     class Meta:
         """Meta"""

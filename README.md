@@ -22,21 +22,30 @@ Django project mukto_site created for OLRN1508 by Mukto Akash.
 - settings.py
 - blog/models.py
 - blog/admin.py
+- credit/models.py
+- tests/blog/models/test_post.py
 
 # Packages
 All packages used are in requirements.txt created using pip freeze
 
 # Apps Created
 - blog
+- credit
+
 ## Classes:
-- Post: for blog posts, contains subclass Meta, methods: __str__, ForeignKey(): author, choices, SlugField, models.ManyToManyField()
+- Post: for blog posts, contains subclass Meta, methods: __str__, ForeignKey(): author, choices, SlugField, models.ManyToManyField(), publish()
 - Meta: subclass of Post for sorting/ordering
 - PostAdmin: for list_display, search_fields, list_filter, preopoulated_fields,
+- PostManager: for filtering data
+- PostQuerySet: for creating common queries
 - CreditRating: for models.OneToOneField(), models.IntegerField()
 - Topic: for models.CharField(), models.SlugField()
 - TopicAdmin: for list_display, prepopulated_fields
+
+
 ## Decorators:
 - @admin.register(models.Topic) # used instead ofadmin.site.register
+- @freeze_time(dt.datetime(2030, 6, 1, 12), tz_offset=0)  # Replaces now()
  
 # Shell Commands:
 ### from blog.models import Post
