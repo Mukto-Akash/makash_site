@@ -58,7 +58,10 @@ def question_7_create_a_comment(post):
     """
     Create and return a comment for the post object provided.
     """
-    comment= Comment(post=post, name = 'kramer', email = 'kramer@artvandalay.com', text='A comment for a given post', approved=True)
+    comment= Comment(post=post, name = 'kramer',
+                     email = 'kramer@artvandalay.com',
+                     text='A comment for a given post',
+                     approved=True)
     comment.save()
     return comment
 

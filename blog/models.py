@@ -58,7 +58,7 @@ class Post(models.Model):
         null=False,
     )
     created = models.DateTimeField(
-        auto_now_add=True, 
+        auto_now_add=True,
         null=True,
         blank=True,
     )  # Sets on create
@@ -113,6 +113,7 @@ class Post(models.Model):
 class CommentManager(models.Manager):
     """Comment Manager"""
     def get_queryset(self) -> QuerySet:
+        """Only shows approved comments"""
         queryset = super().get_queryset()
         return queryset.exclude(approved = False) # Exclude unapproved comments
 
@@ -147,8 +148,8 @@ class Comment(models.Model): #new
     objects = CommentManager()
 
     def __str__(self):
-        return str(self.text[:50])
-       
+        return str(self.text)[:50]
+
     class Meta:
         """Meta for ordering"""
         ordering = ['-created']

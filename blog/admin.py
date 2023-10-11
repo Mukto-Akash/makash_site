@@ -5,6 +5,7 @@ from . import models
 # Register your models here.
 
 class CommentInline(admin.StackedInline):
+    """Inline comments"""
     model = models.Comment
     extra = 0
     readonly_fields = ('name', 'email', 'text')
@@ -33,7 +34,7 @@ class PostAdmin(admin.ModelAdmin):
         'status',
         'topics',
     )
-    
+
     inlines = [
         CommentInline,
     ]
