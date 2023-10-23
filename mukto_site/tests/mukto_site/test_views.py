@@ -1,6 +1,9 @@
 # test_views.py
 """Testing the views"""
 
+import pytest
+
+@pytest.mark.django_db
 def test_index_ok(client):
     """ Make a GET request to / and store the response object
     using the Django test client.

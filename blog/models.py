@@ -4,6 +4,7 @@ from django.db import models
 from django.conf import settings
 from django.db.models.query import QuerySet  # Imports Django's loaded settings
 from django.utils import timezone
+from django.contrib.auth import get_user_model
 
 # Create your models here.
 
@@ -38,6 +39,11 @@ class PostQuerySet(models.QuerySet):
     def drafts(self):
         """returns drafts"""
         return self.filter(status=self.model.DRAFT)
+
+    def get_authors(self):
+        """get_authors"""
+        user = get_user_model()
+        return user.objects.filter(blog_posts__in=self).distinct()
 
 class Post(models.Model):
     """
@@ -109,6 +115,7 @@ class Post(models.Model):
 
     def __str__(self):
         return str(self.title)
+
 
 class CommentManager(models.Manager):
     """Comment Manager"""

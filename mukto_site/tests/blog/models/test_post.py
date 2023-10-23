@@ -1,11 +1,9 @@
-"""tests/blog/test_post.py"""
-
-import pytest
-from blog.models import Post
-from model_bakery import baker
-
+"""tests/blog/models/test_post.py"""
 import datetime as dt
+import pytest
+from model_bakery import baker
 from freezegun import freeze_time
+from blog.models import Post
 
 # Mark this test module as requiring the database
 pytestmark = pytest.mark.django_db
@@ -53,3 +51,14 @@ def test_publish_sets_published_to_current_datetime():
 
     # Set the timezone to UTC (to match tz_offset=0)
     assert post.published == dt.datetime(2030, 6, 1, 12, tzinfo=dt.timezone.utc)
+
+def test_get_authors_returns_users_who_have_authored_a_post(django_user_model):
+    """Create a post authored by user"""
+    # Create a user
+    author = baker.make(django_user_model)
+    # Create a post that is authored by the user
+    baker.make('blog.Post', author=author, _quantity=3)
+    # # Create another user – but this one won't have any posts
+    # baker.make(django_user_model)
+
+    assert list(Post.objects.get_authors()) == [author]

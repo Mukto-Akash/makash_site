@@ -24,6 +24,10 @@ Django project mukto_site created for OLRN1508 by Mukto Akash.
 - blog/admin.py
 - credit/models.py
 - tests/blog/models/test_post.py
+- blog/templates/blog/base.html
+- blog/static/blog/base.css
+- blog/templates/blog/home.html
+- tests/blog/views/test_views.py
 
 # Packages
 All packages used are in requirements.txt created using pip freeze
@@ -31,6 +35,12 @@ All packages used are in requirements.txt created using pip freeze
 # Apps Created
 - blog
 - credit
+
+# Templates
+- blog: base.html, home.html
+
+# CSS
+- blog: base.css
 
 ## Classes:
 - Post: for blog posts, contains subclass Meta, methods: __str__, ForeignKey(): author, choices, SlugField, models.ManyToManyField(), publish()
@@ -46,6 +56,7 @@ All packages used are in requirements.txt created using pip freeze
 ## Decorators:
 - @admin.register(models.Topic) # used instead ofadmin.site.register
 - @freeze_time(dt.datetime(2030, 6, 1, 12), tz_offset=0)  # Replaces now()
+- @pytest.mark.django_db # Needs to import pytest, needed for test_views -> test_index_ok
  
 # Shell Commands:
 ### from blog.models import Post

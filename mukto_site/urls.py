@@ -21,7 +21,8 @@ from blog import views as vw
 from . import views # Import the views module
 
 urlpatterns = [
-    path('', views.index), # Add our index view to the URL patterns
+    #path('', views.index), # Add our index view to the URL patterns
     path('admin/', admin.site.urls),
     path('blog', vw.blog),
+    path('', vw.home, name='home'), # Set root to home view
 ]
