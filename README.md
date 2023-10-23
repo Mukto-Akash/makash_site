@@ -102,3 +102,5 @@ All packages used are in requirements.txt created using pip freeze
 ### from django.db.models import Avg, Count
 - User.objects.annotate(total_posts=Count('blog_posts')).aggregate(avg_posts=Avg('total_posts'))
 
+# Miscellaneous
+- HTML_practice directory
