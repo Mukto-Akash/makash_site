@@ -38,6 +38,14 @@
         </div>
 
         <aside id="sidebar">
+            <section id="topic-list">
+                <h3>Popular Topics</h3>
+                <ul>
+                  {% for topic in topics %}
+                    <li>{{ topic.name }} ({{ topic.total_posts}})</li>
+                  {% endfor %}
+                </ul>
+              </section>
             <section id="author-list">
               <h3>Authors</h3>
               <ul>
