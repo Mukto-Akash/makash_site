@@ -18,7 +18,7 @@ def home(request):
     # context = {'latest_posts': latest_posts}
     # authors = models.Post.objects.get_authors()
     authors = models.Post.objects.published().get_authors().order_by('first_name')
-    topics = models.Post.objects.published().get_topics()
+    topics = models.Topic.objects.get_topics()
 
     context = {
         'authors': authors,

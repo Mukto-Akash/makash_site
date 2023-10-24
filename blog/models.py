@@ -9,6 +9,14 @@ from django.db.models import Count
 
 # Create your models here.
 
+class TopicQuerySet(models.QuerySet):
+    """Query for topics"""
+    def get_topics(self):
+        """get_topics"""
+        topics = Topic.objects.annotate(total_posts=Count('blog_posts'))
+        topics = topics.order_by('-total_posts').distinct()
+        return topics
+
 class Topic(models.Model):
     """Topic class"""
     name = models.CharField(
@@ -16,6 +24,7 @@ class Topic(models.Model):
         unique = True # No dublicates!
     )
     slug = models.SlugField(unique=True)
+    objects = TopicQuerySet.as_manager()
 
     def __str__(self):
         return str(self.name)
@@ -45,11 +54,6 @@ class PostQuerySet(models.QuerySet):
         """get_authors"""
         user = get_user_model()
         return user.objects.filter(blog_posts__in=self).distinct()
-    
-    def get_topics(self):
-        """get_topics"""
-        topics = Topic.objects.annotate(total_posts=Count('blog_posts')).order_by('-total_posts').distinct()
-        return topics
 
 class Post(models.Model):
     """
