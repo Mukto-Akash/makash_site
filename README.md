@@ -48,6 +48,7 @@ All packages used are in requirements.txt created using pip freeze
 - PostAdmin: for list_display, search_fields, list_filter, preopoulated_fields,
 - PostManager: for filtering data
 - PostQuerySet: for creating common queries
+- TopicQuerySet: for queries with topics
 - CreditRating: for models.OneToOneField(), models.IntegerField()
 - Topic: for models.CharField(), models.SlugField()
 - TopicAdmin: for list_display, prepopulated_fields
