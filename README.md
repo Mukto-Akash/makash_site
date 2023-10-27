@@ -25,6 +25,7 @@ Django project mukto_site created for OLRN1508 by Mukto Akash.
 - credit/models.py
 - tests/blog/models/test_post.py
 - blog/templates/blog/base.html
+- blog/templates/blog/about.html
 - blog/static/blog/base.css
 - blog/templates/blog/home.html
 - tests/blog/views/test_views.py
@@ -52,6 +53,8 @@ All packages used are in requirements.txt created using pip freeze
 - CreditRating: for models.OneToOneField(), models.IntegerField()
 - Topic: for models.CharField(), models.SlugField()
 - TopicAdmin: for list_display, prepopulated_fields
+- ContextMixin: for avoiding repetition through inheritence
+- HomeView, AboutView: class-based views
 
 
 ## Decorators:

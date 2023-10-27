@@ -24,5 +24,7 @@ urlpatterns = [
     #path('', views.index), # Add our index view to the URL patterns
     path('admin/', admin.site.urls),
     path('blog', vw.blog),
-    path('', vw.home, name='home'), # Set root to home view
+    # path('', vw.home, name='home'), # Set root to home view
+    path('', vw.HomeView.as_view(), name='home'),
+    path('about/', vw.AboutView.as_view(), name='about'),
 ]
