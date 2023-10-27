@@ -27,4 +27,5 @@ urlpatterns = [
     # path('', vw.home, name='home'), # Set root to home view
     path('', vw.HomeView.as_view(), name='home'),
     path('about/', vw.AboutView.as_view(), name='about'),
+    path('terms/', vw.terms_and_conditions, name='terms-and-conditions'),
 ]

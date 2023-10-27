@@ -31,22 +31,23 @@ def home(request):
 
     return render(request, 'blog/home.html', context)
 
-class ContextMixin:
-    """
-    Provides common context variables for blog views
-    """
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['authors'] = models.Post.objects.published().get_authors().order_by('first_name')
-        context['topics'] = models.Topic.objects.get_topics()
+# class ContextMixin:
+#     """
+#     Provides common context variables for blog views
+#     """
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['authors'] = models.Post.objects.published().get_authors().order_by('first_name')
+#         context['topics'] = models.Topic.objects.get_topics()
 
-        return context
-    
+#         return context
+  
 # class AboutView(View):
     # def get(self, request):
     #     return render(request, 'blog/about.html')
 
-class AboutView(ContextMixin,TemplateView):
+# class AboutView(ContextMixin,TemplateView):
+class AboutView(TemplateView):
     template_name = 'blog/about.html'
 # 
 #     def get_context_data(self, **kwargs):
@@ -60,7 +61,8 @@ class AboutView(ContextMixin,TemplateView):
 #         return context
 
 
-class HomeView(ContextMixin, TemplateView):
+# class HomeView(ContextMixin, TemplateView):
+class HomeView(TemplateView):
     template_name = 'blog/home.html'
 
     def get_context_data(self, **kwargs):
@@ -84,3 +86,6 @@ class HomeView(ContextMixin, TemplateView):
         })
 
         return context
+
+def terms_and_conditions(request):
+    return render(request, 'blog/terms_and_conditions.html')

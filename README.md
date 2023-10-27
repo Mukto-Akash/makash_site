@@ -22,13 +22,15 @@ Django project mukto_site created for OLRN1508 by Mukto Akash.
 - settings.py
 - blog/models.py
 - blog/admin.py
+- blog/context_processors.py
 - credit/models.py
-- tests/blog/models/test_post.py
-- blog/templates/blog/base.html
-- blog/templates/blog/about.html
 - blog/static/blog/base.css
 - blog/templates/blog/home.html
+- blog/templates/blog/base.html
+- blog/templates/blog/about.html
+- blog/templates/blog/terms_and_conditions.html
 - tests/blog/views/test_views.py
+- tests/blog/models/test_post.py
 
 # Packages
 All packages used are in requirements.txt created using pip freeze
