@@ -28,4 +28,15 @@ urlpatterns = [
     path('', vw.HomeView.as_view(), name='home'),
     path('about/', vw.AboutView.as_view(), name='about'),
     path('terms/', vw.terms_and_conditions, name='terms-and-conditions'),
+    path('posts/', vw.PostListView.as_view(), name='post-list'),
+    path(
+        'posts/<int:year>/<int:month>/<int:day>/<slug:slug>/',
+        vw.PostDetailView.as_view(),
+        name='post-detail',
+    ),
+    path(
+        'posts/<int:pk>/',
+        vw.PostDetailView.as_view(),
+        name='post-detail'
+    ),
 ]

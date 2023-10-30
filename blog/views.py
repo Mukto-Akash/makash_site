@@ -1,8 +1,9 @@
 """blogs/views.py"""
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.views import View
+# from django.views import View
 from django.views.generic.base import TemplateView
+from django.views.generic import ListView, DetailView
 
 from . import models
 # Create your views here.
@@ -31,6 +32,30 @@ def home(request):
 
     return render(request, 'blog/home.html', context)
 
+class PostListView(ListView):
+    """PostListView"""
+    model = models.Post
+    context_object_name = 'posts'
+    queryset = models.Post.objects.published().order_by('-published')  # Customized queryset
+
+class PostDetailView(DetailView):
+    """PostDetailView"""
+    model = models.Post
+
+    def get_queryset(self):
+        queryset = super().get_queryset().published()
+
+        # If this is a `pk` lookup, use default queryset
+        if 'pk' in self.kwargs:
+            return queryset
+
+        # Otherwise, filter on the published date
+        return queryset.filter(
+            published__year=self.kwargs['year'],
+            published__month=self.kwargs['month'],
+            published__day=self.kwargs['day'],
+        )
+
 # class ContextMixin:
 #     """
 #     Provides common context variables for blog views
@@ -41,15 +66,16 @@ def home(request):
 #         context['topics'] = models.Topic.objects.get_topics()
 
 #         return context
-  
+
 # class AboutView(View):
     # def get(self, request):
     #     return render(request, 'blog/about.html')
 
 # class AboutView(ContextMixin,TemplateView):
 class AboutView(TemplateView):
+    """AboutView"""
     template_name = 'blog/about.html'
-# 
+#
 #     def get_context_data(self, **kwargs):
 #         # Get the context from the parent class
 #         context = super().get_context_data(**kwargs)
@@ -57,12 +83,13 @@ class AboutView(TemplateView):
 #         # Define the "authors" context variable
 #         context['authors'] = models.Post.objects.published().get_authors().order_by('first_name')
 #         context['topics'] = models.Topic.objects.get_topics()
-# 
+#
 #         return context
 
 
 # class HomeView(ContextMixin, TemplateView):
 class HomeView(TemplateView):
+    """HomeView"""
     template_name = 'blog/home.html'
 
     def get_context_data(self, **kwargs):
@@ -88,4 +115,5 @@ class HomeView(TemplateView):
         return context
 
 def terms_and_conditions(request):
+    """terms_and_conditions"""
     return render(request, 'blog/terms_and_conditions.html')

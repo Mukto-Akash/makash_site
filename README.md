@@ -29,6 +29,9 @@ Django project mukto_site created for OLRN1508 by Mukto Akash.
 - blog/templates/blog/base.html
 - blog/templates/blog/about.html
 - blog/templates/blog/terms_and_conditions.html
+- blog/templates/blog/post_list.html
+- blog/templates/blog/post_detail.html
+- blog/templates/blog/post_preview.html
 - tests/blog/views/test_views.py
 - tests/blog/models/test_post.py
 
@@ -40,7 +43,7 @@ All packages used are in requirements.txt created using pip freeze
 - credit
 
 # Templates
-- blog: base.html, home.html
+- blog: base.html, home.html, about.html, terms_and_conditions.html, post_list.html, post_detail.html, post_preview.html
 
 # CSS
 - blog: base.css
@@ -57,6 +60,8 @@ All packages used are in requirements.txt created using pip freeze
 - TopicAdmin: for list_display, prepopulated_fields
 - ContextMixin: for avoiding repetition through inheritence
 - HomeView, AboutView: class-based views
+- PostListView inherited from generic ListView
+- PostDetailView inherited from generic DetailView
 
 
 ## Decorators:

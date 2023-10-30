@@ -6,6 +6,7 @@ from django.db.models.query import QuerySet  # Imports Django's loaded settings
 from django.utils import timezone
 from django.contrib.auth import get_user_model
 from django.db.models import Count
+from django.urls import reverse
 
 # Create your models here.
 
@@ -114,6 +115,19 @@ class Post(models.Model):
         self.status = self.PUBLISHED
         self.published = timezone.now()  # The current datetime with timezone
 
+    def get_absolute_url(self):
+        """Absolute URL"""
+        if self.published:
+            kwargs = {
+                'year': self.published.year,
+                'month': self.published.month,
+                'day': self.published.day,
+                'slug': self.slug
+            }
+        else:
+            kwargs = {'pk': self.pk}
+
+        return reverse('post-detail', kwargs=kwargs)
 
     class Meta:
         """Meta"""
