@@ -10,13 +10,13 @@ from django.urls import reverse
 
 # Create your models here.
 
-class TopicQuerySet(models.QuerySet):
-    """Query for topics"""
-    def get_topics(self):
-        """get_topics"""
-        topics = Topic.objects.annotate(total_posts=Count('blog_posts'))
-        topics = topics.order_by('-total_posts').distinct()
-        return topics
+# class TopicQuerySet(models.QuerySet):
+#     """Query for topics"""
+#     def get_topics(self):
+#         """get_topics"""
+#         topics = Topic.objects.annotate(total_posts=Count('blog_posts'))
+#         topics = topics.order_by('-total_posts').distinct()
+#         return topics
 
 class Topic(models.Model):
     """Topic class"""
@@ -25,10 +25,14 @@ class Topic(models.Model):
         unique = True # No dublicates!
     )
     slug = models.SlugField(unique=True)
-    objects = TopicQuerySet.as_manager()
+    # objects = TopicQuerySet.as_manager()
 
     def __str__(self):
         return str(self.name)
+    
+    def get_absolute_url(self):
+        """Absolute URL"""
+        return reverse('topic-detail', kwargs={'slug': self.slug})
 
     class Meta:
         """Meta"""

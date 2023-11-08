@@ -6,7 +6,20 @@
 <article id="post-detail-article">
   <h1>{{ post.title }}</h1>
   <span class="published">Published <time>{{ post.published }}</time></span><br>
-  <span class="author">{{ post.author.get_full_name }}</span>
+  <span class="author">{{ post.author.get_full_name }}</span><br>
+<!-- New for Assignment 4 -->
+  <span class="topics">
+    {% for rel_top in related_topics%}
+      <a href="#">
+        {% if not forloop.last %}
+          {{ rel_top.name }},
+        {% else %}
+          {{ rel_top.name }}
+        {% endif %}
+      </a>
+      
+    {% endfor %}
+  </span>
 
   <section class="content">{{ post.content|linebreaks }}</section>
 </article>

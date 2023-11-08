@@ -39,4 +39,8 @@ urlpatterns = [
         vw.PostDetailView.as_view(),
         name='post-detail'
     ),
+    # New for Assignment 4
+    path('topics/', vw.TopicListView.as_view(), name='topic-list'),
+    path('topics/<slug:slug>/', vw.TopicDetailView.as_view(), name='topic-detail'),
+    #---------------------
 ]

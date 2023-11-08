@@ -1,4 +1,5 @@
 """blogs/views.py"""
+from typing import Any, Dict
 from django.shortcuts import render
 from django.http import HttpResponse
 # from django.views import View
@@ -7,6 +8,39 @@ from django.views.generic import ListView, DetailView
 
 from . import models
 # Create your views here.
+
+# For Assignment 4 ----------------------------------------------------------------
+class TopicListView(ListView):
+    """List view of topics to show on /topic/"""
+    template_name = 'blog/topic_list.html'
+
+    model = models.Topic
+    context_object_name = 'topics'
+    queryset = models.Topic.objects.order_by('name') # sort alphabetically
+
+class TopicDetailView(DetailView):
+    """View to show all the posts related to a topic"""
+    template_name = 'blog/topic_detail.html'
+    model = models.Topic
+
+    # def get_queryset(self):
+    #     # queryset = super().get_queryset().all()
+    #     queryset = models.Topic.objects.all()
+
+    def get_object(self):
+        obj = super().get_object()
+        return obj
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # context['topics'] = self.get_queryset
+        topic = self.get_object()
+        # Add in a QuerySet of all the posts
+        # context["posts"] = models.Post.objects.all().published().distinct().order_by('-published').filter(topics__blog_posts=topic.pk)
+        context['posts'] = topic.blog_posts.all()
+        return context
+# ---------------------------------------------------------------------------------
 
 def blog(request):
     """blog"""
@@ -55,6 +89,16 @@ class PostDetailView(DetailView):
             published__month=self.kwargs['month'],
             published__day=self.kwargs['day'],
         )
+    
+    # New for Assignment 4 ---
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        current_post = self.get_object()
+        related_topics = current_post.topics.all()
+        context['related_topics'] = related_topics
+        return context
+
+    #------------------------
 
 # class ContextMixin:
 #     """
