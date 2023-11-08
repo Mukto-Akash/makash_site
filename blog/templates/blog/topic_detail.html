@@ -5,8 +5,8 @@
 
 {% block main %}
 <h1> {{ topic.name }} </h1>
+<em> {{num_posts}} Posts </em>
 {% for post in posts %}
-    {{ post.topics.slug }}
     {% include "blog/post_preview.html" %}
 {% endfor %}
 

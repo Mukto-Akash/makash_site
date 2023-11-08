@@ -5,6 +5,7 @@ from django.http import HttpResponse
 # from django.views import View
 from django.views.generic.base import TemplateView
 from django.views.generic import ListView, DetailView
+# from django.db.models import Count, Sum
 
 from . import models
 # Create your views here.
@@ -23,10 +24,6 @@ class TopicDetailView(DetailView):
     template_name = 'blog/topic_detail.html'
     model = models.Topic
 
-    # def get_queryset(self):
-    #     # queryset = super().get_queryset().all()
-    #     queryset = models.Topic.objects.all()
-
     def get_object(self):
         obj = super().get_object()
         return obj
@@ -34,11 +31,13 @@ class TopicDetailView(DetailView):
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
-        # context['topics'] = self.get_queryset
+
+        # Get the current topic
         topic = self.get_object()
+
         # Add in a QuerySet of all the posts
-        # context["posts"] = models.Post.objects.all().published().distinct().order_by('-published').filter(topics__blog_posts=topic.pk)
         context['posts'] = topic.blog_posts.all()
+        context['num_posts'] = context['posts'].count()
         return context
 # ---------------------------------------------------------------------------------
 

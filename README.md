@@ -32,6 +32,8 @@ Django project mukto_site created for OLRN1508 by Mukto Akash.
 - blog/templates/blog/post_list.html
 - blog/templates/blog/post_detail.html
 - blog/templates/blog/post_preview.html
+- blog/templates/blog/topic_list.html
+- blog/templates/blog/topic_detail.html
 - tests/blog/views/test_views.py
 - tests/blog/models/test_post.py
 
@@ -43,7 +45,7 @@ All packages used are in requirements.txt created using pip freeze
 - credit
 
 # Templates
-- blog: base.html, home.html, about.html, terms_and_conditions.html, post_list.html, post_detail.html, post_preview.html
+- blog: base.html, home.html, about.html, terms_and_conditions.html, post_list.html, post_detail.html, post_preview.html, topic_list.html, topic_detail.html
 
 # CSS
 - blog: base.css
@@ -60,8 +62,9 @@ All packages used are in requirements.txt created using pip freeze
 - TopicAdmin: for list_display, prepopulated_fields
 - ContextMixin: for avoiding repetition through inheritence
 - HomeView, AboutView: class-based views
-- PostListView inherited from generic ListView
-- PostDetailView inherited from generic DetailView
+- PostListView, TopicListView inherited from generic ListView
+- PostDetailView, TopicDetailView inherited from generic DetailView
+
 
 
 ## Decorators:
@@ -104,13 +107,15 @@ All packages used are in requirements.txt created using pip freeze
 - user.credit_rating
 - rating.user
 ### from blog.models import Post, Topic
--  post = topic.blog_posts.first() # Grab first element in the list
+- post = topic.blog_posts.first() # Grab first element in the list
 - post.topics.all()
 - post = Post.objects.create(title='M2M', author=user, slug='m2m')
 - topic = Topic.objects.create(name='ORM', slug='orm')
 - post.topics.add(topic)
 - post.topics.remove(topic)
 - post.topics.clear() # remove() and clear() methods do not delete the topics; they dissassociate topics from posts.
+- topic.blog_posts.all() # get all blog_posts for a given topic
+- post.topics.all() # get all topics for given post
 ### from django.db.models import Q
 - Post.objects.filter(Q(status='draft') | Q(title__startswith='Django'))
 - Post.objects.filter(Q(status='draft') & Q(title__icontains='admin') & ~Q(topics__name='ORM'))
