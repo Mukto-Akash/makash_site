@@ -1,7 +1,8 @@
 """  blog/context_processors.py """
 
-from . import models
 from django.db.models import Count
+from . import models
+
 
 def base_context(request):
     """base_context"""
@@ -12,6 +13,7 @@ def base_context(request):
     topics = models.Topic.objects.all()
 
     # New for Assignment 4
-    top_topics = models.Topic.objects.annotate(total_posts=Count('blog_posts')).order_by('-total_posts').distinct()[:5]
-    
+    top_topics = models.Topic.objects.annotate(total_posts=Count('blog_posts'))\
+        .order_by('-total_posts').distinct()[:5]
+
     return {'authors': authors, 'topics': topics, 'top_topics': top_topics}

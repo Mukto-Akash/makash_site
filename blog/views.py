@@ -1,5 +1,5 @@
 """blogs/views.py"""
-from typing import Any, Dict
+# from typing import Any, Dict
 from django.shortcuts import render
 from django.http import HttpResponse
 # from django.views import View
@@ -23,10 +23,6 @@ class TopicDetailView(DetailView):
     """View to show all the posts related to a topic"""
     template_name = 'blog/topic_detail.html'
     model = models.Topic
-
-    def get_object(self):
-        obj = super().get_object()
-        return obj
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
@@ -55,7 +51,8 @@ def home(request):
     # context = {'latest_posts': latest_posts}
     # authors = models.Post.objects.get_authors()
     authors = models.Post.objects.published().get_authors().order_by('first_name')
-    topics = models.Topic.objects.get_topics()
+    # topics = models.Topic.objects.get_topics()
+    topics = models.Topic.objects.all()
 
     context = {
         'authors': authors,
@@ -88,7 +85,7 @@ class PostDetailView(DetailView):
             published__month=self.kwargs['month'],
             published__day=self.kwargs['day'],
         )
-    
+
     # New for Assignment 4 ---
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
