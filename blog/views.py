@@ -4,7 +4,9 @@ from django.shortcuts import render
 from django.http import HttpResponse
 # from django.views import View
 from django.views.generic.base import TemplateView
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, FormView
+from django.urls import reverse_lazy
+from django.contrib import messages
 # from django.db.models import Count, Sum
 
 from . import forms, models
@@ -160,7 +162,7 @@ def terms_and_conditions(request):
 
 def form_example(request):
     """Create an instance of the form"""
-    # form = forms.ExampleSignupForm()
+    form = forms.ExampleSignupForm()
     # Handle the POST
     if request.method == 'POST':
         # Pass the POST data into a new form instance for validation
@@ -183,3 +185,19 @@ def form_example(request):
     # Render the form and pass it into the context
     # Return if either an invalid POST or a GET
     return render(request, 'blog/form_example.html', context={'form': form})
+
+class FormViewExample(FormView):
+    """Class based FormView"""
+    template_name = 'blog/form_example.html'
+    form_class = forms.ExampleSignupForm
+    success_url = reverse_lazy('home')
+    
+    def form_valid(self, form):
+        """Create a "success" message"""
+        messages.add_message(
+            self.request,
+            messages.SUCCESS,
+            'Thank you for signing up!'
+        )
+        # Continue with default behaviour
+        return super().form_valid(form)

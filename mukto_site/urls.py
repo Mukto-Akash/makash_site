@@ -42,4 +42,9 @@ urlpatterns = [
     path('topics/', vw.TopicListView.as_view(), name='topic-list'),
     path('topics/<slug:slug>/', vw.TopicDetailView.as_view(), name='topic-detail'),
     path('form-example/', vw.form_example, name='form-example'),
+    path(
+        'formview-example/',
+        vw.FormViewExample.as_view(),
+        name='formview-example'
+    ),
 ]
