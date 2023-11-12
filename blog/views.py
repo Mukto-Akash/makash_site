@@ -179,8 +179,8 @@ def form_example(request):
                 context={'data': cleaned_data}
             )
         # If not a POST, return a blank form
-        else:
-            form = forms.ExampleSignupForm()
+        # else:
+        #     form = forms.ExampleSignupForm()
 
     # Render the form and pass it into the context
     # Return if either an invalid POST or a GET
@@ -191,7 +191,7 @@ class FormViewExample(FormView):
     template_name = 'blog/form_example.html'
     form_class = forms.ExampleSignupForm
     success_url = reverse_lazy('home')
-    
+
     def form_valid(self, form):
         """Create a "success" message"""
         messages.add_message(
@@ -203,6 +203,7 @@ class FormViewExample(FormView):
         return super().form_valid(form)
 
 class ContactFormView(CreateView):
+    """ContactFormView"""
     model = models.Contact
     success_url = reverse_lazy('home')
     fields = [

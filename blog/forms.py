@@ -1,4 +1,4 @@
-# blog/forms.py
+"""# blog/forms.py"""
 
 from django import forms
 

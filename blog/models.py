@@ -5,7 +5,7 @@ from django.conf import settings
 from django.db.models.query import QuerySet  # Imports Django's loaded settings
 from django.utils import timezone
 from django.contrib.auth import get_user_model
-from django.db.models import Count
+# from django.db.models import Count
 from django.urls import reverse
 
 # Create your models here.
@@ -198,6 +198,7 @@ class Contact(models.Model):
     submitted = models.DateTimeField(auto_now_add=True)
 
     class Meta:
+        """Meta"""
         ordering = ['-submitted']
 
     def __str__(self):

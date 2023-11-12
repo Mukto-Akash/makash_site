@@ -73,6 +73,7 @@ class CommentAdmin(admin.ModelAdmin):
 
 @admin.register(models.Contact)
 class ContactAdmin(admin.ModelAdmin):
+    """ContactAdmin"""
     list_display = (
         'email',
         'last_name',
