@@ -23,6 +23,7 @@ Django project mukto_site created for OLRN1508 by Mukto Akash.
 - blog/models.py
 - blog/admin.py
 - blog/context_processors.py
+- blog/forms.py
 - credit/models.py
 - blog/static/blog/base.css
 - blog/templates/blog/home.html
@@ -34,6 +35,8 @@ Django project mukto_site created for OLRN1508 by Mukto Akash.
 - blog/templates/blog/post_preview.html
 - blog/templates/blog/topic_list.html
 - blog/templates/blog/topic_detail.html
+- blog/templates/blog/form_example.html
+- blog/templates/blog/form_example_success.html
 - tests/blog/views/test_views.py
 - tests/blog/models/test_post.py
 
@@ -64,6 +67,7 @@ All packages used are in requirements.txt created using pip freeze
 - HomeView, AboutView: class-based views
 - PostListView, TopicListView inherited from generic ListView
 - PostDetailView, TopicDetailView inherited from generic DetailView
+- Form Classes: NameForm, ExampleSignupForm
 
 
 

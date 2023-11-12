@@ -7,10 +7,10 @@ from django.views.generic.base import TemplateView
 from django.views.generic import ListView, DetailView
 # from django.db.models import Count, Sum
 
-from . import models
+from . import forms, models
 # Create your views here.
 
-# For Assignment 4 ----------------------------------------------------------------
+#---------------------------------------------------------------------------
 class TopicListView(ListView):
     """List view of topics to show on /topic/"""
     template_name = 'blog/topic_list.html'
@@ -86,7 +86,7 @@ class PostDetailView(DetailView):
             published__day=self.kwargs['day'],
         )
 
-    # New for Assignment 4 ---
+    # ------------------------------------------------
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         current_post = self.get_object()
@@ -157,3 +157,29 @@ class HomeView(TemplateView):
 def terms_and_conditions(request):
     """terms_and_conditions"""
     return render(request, 'blog/terms_and_conditions.html')
+
+def form_example(request):
+    """Create an instance of the form"""
+    # form = forms.ExampleSignupForm()
+    # Handle the POST
+    if request.method == 'POST':
+        # Pass the POST data into a new form instance for validation
+        form = forms.ExampleSignupForm(request.POST)
+
+        # If the form is valid, return a different template
+        if form.is_valid():
+            # form.cleaned_data is a dict with valid form data
+            cleaned_data = form.cleaned_data
+
+            return render(
+                request,
+                'blog/form_example_success.html',
+                context={'data': cleaned_data}
+            )
+        # If not a POST, return a blank form
+        else:
+            form = forms.ExampleSignupForm()
+
+    # Render the form and pass it into the context
+    # Return if either an invalid POST or a GET
+    return render(request, 'blog/form_example.html', context={'form': form})
