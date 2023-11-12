@@ -37,6 +37,7 @@ Django project mukto_site created for OLRN1508 by Mukto Akash.
 - blog/templates/blog/topic_detail.html
 - blog/templates/blog/form_example.html
 - blog/templates/blog/form_example_success.html
+- blog/templates/blog/contact_form.html
 - tests/blog/views/test_views.py
 - tests/blog/models/test_post.py
 
@@ -63,12 +64,14 @@ All packages used are in requirements.txt created using pip freeze
 - CreditRating: for models.OneToOneField(), models.IntegerField()
 - Topic: for models.CharField(), models.SlugField()
 - TopicAdmin: for list_display, prepopulated_fields
+- Contact: for creating a contact page
+- ContactAdmin: for readonly_fields
 - ContextMixin: for avoiding repetition through inheritence
 - HomeView, AboutView: class-based views
 - PostListView, TopicListView inherited from generic ListView
 - PostDetailView, TopicDetailView inherited from generic DetailView
 - Custom Form Classes: NameForm, ExampleSignupForm
-- FormViewExample
+- FormViewExample, ContactFormView inherited from FormView, CreateView respectively.
 
 
 

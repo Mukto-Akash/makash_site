@@ -47,4 +47,5 @@ urlpatterns = [
         vw.FormViewExample.as_view(),
         name='formview-example'
     ),
+    path('contact/', vw.ContactFormView.as_view(), name='contact'),
 ]
