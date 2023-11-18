@@ -7,6 +7,7 @@ from django.utils import timezone
 from django.contrib.auth import get_user_model
 # from django.db.models import Count
 from django.urls import reverse
+from ckeditor_uploader.fields import RichTextUploadingField
 
 # Create your models here.
 
@@ -71,7 +72,8 @@ class Post(models.Model):
         (PUBLISHED, 'Published')
     ]
     title = models.CharField(max_length=255, null = False,)
-    content = models.TextField(null=True, blank=True)
+    # content = models.TextField(null=True, blank=True)
+    content = RichTextUploadingField()
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL,  # The Django auth user model
         on_delete=models.PROTECT,  # Prevent posts from being deleted
@@ -109,6 +111,11 @@ class Post(models.Model):
         Topic,
         related_name='blog_posts',
         blank=True
+    )
+    banner = models.ImageField(
+        blank=True,
+        null=True,
+        help_text='A banner image for the post',
     )
     deleted = models.BooleanField()
     objects = PostManager()

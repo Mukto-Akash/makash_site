@@ -7,6 +7,9 @@
   <h1>{{ post.title }}</h1>
   <span class="published">Published <time>{{ post.published }}</time></span><br>
   <span class="author">{{ post.author.get_full_name }}</span><br>
+  {% if post.banner %}
+    <img src="{{ post.banner.url }}" width="100%" alt="Banner image">
+  {% endif %}
 <!-- New for Assignment 4 -->
   <span class="topics">
     {% for rel_top in related_topics%}
@@ -21,6 +24,6 @@
     {% endfor %}
   </span>
 
-  <section class="content">{{ post.content|linebreaks }}</section>
+  <section class="content">{{ post.content|safe|linebreaks }}</section>
 </article>
 {% endblock %}

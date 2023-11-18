@@ -70,7 +70,7 @@ All packages used are in requirements.txt created using pip freeze
 - HomeView, AboutView: class-based views
 - PostListView, TopicListView inherited from generic ListView
 - PostDetailView, TopicDetailView inherited from generic DetailView
-- Custom Form Classes: NameForm, ExampleSignupForm
+- NameForm, ExampleSignupForm: custom form classes 
 - FormViewExample, ContactFormView inherited from FormView, CreateView respectively.
 
 
