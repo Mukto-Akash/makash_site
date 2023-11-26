@@ -51,4 +51,7 @@ urlpatterns = [
     ),
     path('contact/', vw.ContactFormView.as_view(), name='contact'),
     path('ckeditor/', include('ckeditor_uploader.urls')),
+    # Assignment 5 --------------------------------------------
+    path('contest/', vw.PhotoFormView.as_view(), name='contest'),
+    # ---------------------------------------------------------
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

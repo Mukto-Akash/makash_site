@@ -210,3 +210,32 @@ class Contact(models.Model):
 
     def __str__(self):
         return f'{self.submitted.date()}: {self.email}'
+
+# Assignment 5 -----------------------------------------
+class PhotoContestSubmissions(models.Model):
+    first_name=models.CharField(
+        max_length=255,
+        null = False,
+    )
+    last_name=models.CharField(
+        max_length=255,
+        null = False,
+    )
+    email=models.EmailField(
+        max_length=254,
+        null=False,
+    )
+    photo=models.ImageField(
+        blank=True,
+        null=True,
+    )
+    submitted = models.DateTimeField(
+        null=True,
+        blank=True,
+        auto_now=True,
+    )
+
+    class Meta:
+        """Meta"""
+        ordering = ['-submitted']
+# --------------------------------------------------------

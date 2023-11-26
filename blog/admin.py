@@ -88,3 +88,33 @@ class ContactAdmin(admin.ModelAdmin):
         'message',
         'submitted'
     )
+
+# Assignmetn 5 -----------------------------------
+@admin.register(models.PhotoContestSubmissions)
+class PhotoContestSubmissionsAdmin(admin.ModelAdmin):
+    """PhotoContestSubmissionsAdmin"""
+    list_display = (
+        'email',
+        'last_name',
+        'first_name',
+        'submitted',
+    )
+    search_fields=(
+        'email',
+        'last_name',
+        'first_name',
+    )
+    list_filter=(
+        'email',
+        'last_name',
+        'first_name',
+    )
+    readonly_fields = (
+        'first_name',
+        'last_name',
+        'email',
+        'photo',
+        'submitted'
+    )
+
+# ------------------------------------------------
