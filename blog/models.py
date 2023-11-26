@@ -213,6 +213,7 @@ class Contact(models.Model):
 
 # Assignment 5 -----------------------------------------
 class PhotoContestSubmissions(models.Model):
+    """PhotoContestSubmissions"""
     first_name=models.CharField(
         max_length=255,
         null = False,

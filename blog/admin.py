@@ -89,7 +89,7 @@ class ContactAdmin(admin.ModelAdmin):
         'submitted'
     )
 
-# Assignmetn 5 -----------------------------------
+# Assignment 5 -----------------------------------
 @admin.register(models.PhotoContestSubmissions)
 class PhotoContestSubmissionsAdmin(admin.ModelAdmin):
     """PhotoContestSubmissionsAdmin"""
@@ -116,5 +116,4 @@ class PhotoContestSubmissionsAdmin(admin.ModelAdmin):
         'photo',
         'submitted'
     )
-
 # ------------------------------------------------
