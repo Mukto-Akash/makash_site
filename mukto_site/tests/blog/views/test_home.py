@@ -31,19 +31,21 @@ def test_authors_included_in_context_data(client, django_user_model):
         'blog.Post',
         status=Post.PUBLISHED,
         author=cosmo,
-        _quantity=2
+        _quantity=2,
+        content="test"
     )
     # Make a published author called Elaine
     elaine = baker.make(
         django_user_model,
         username='ebenez',
         first_name='Elaine',
-        last_name='Benez'
+        last_name='Benez',
     )
     baker.make(
         'blog.Post',
         status=Post.PUBLISHED,
         author=elaine,
+        content="test"
     )
 
     # Make an unpublished author
@@ -51,7 +53,7 @@ def test_authors_included_in_context_data(client, django_user_model):
         django_user_model,
         username='gcostanza'
     )
-    baker.make('blog.Post', author=unpublished_author, status=Post.DRAFT)
+    baker.make('blog.Post', author=unpublished_author, status=Post.DRAFT, content="test")
 
     # Expect Cosmo and Elaine to be returned, in this order
     expected = [cosmo, elaine]

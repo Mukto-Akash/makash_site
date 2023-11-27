@@ -11,9 +11,9 @@ pytestmark = pytest.mark.django_db
 
 def test_published_posts_only_returns_those_with_published_status():
     """Create a published Post by setting the status to 'published'"""
-    published = baker.make('blog.Post', status=Post.PUBLISHED)
+    published = baker.make('blog.Post', status=Post.PUBLISHED, content="test")
     # Create a draft Post
-    baker.make('blog.Post', status=Post.DRAFT)
+    baker.make('blog.Post', status=Post.DRAFT, content="test")
 
     # We expect only the "published" object to be returned
     expected = [published]
@@ -25,9 +25,9 @@ def test_published_posts_only_returns_those_with_published_status():
 
 def test_draft_posts_only_returns_those_with_draft_status():
     """Create a published Post by setting the status to 'draft'"""
-    draft = baker.make('blog.Post', status=Post.DRAFT)
+    draft = baker.make('blog.Post', status=Post.DRAFT, content="test")
     # Create a draft Post
-    baker.make('blog.Post', status=Post.PUBLISHED)
+    baker.make('blog.Post', status=Post.PUBLISHED, content="test")
 
     # We expect only the "published" object to be returned
     expected = [draft]
@@ -39,14 +39,14 @@ def test_draft_posts_only_returns_those_with_draft_status():
 
 def test_publish_sets_status_to_published():
     """test status"""
-    post = baker.make('blog.Post', status=Post.DRAFT)
+    post = baker.make('blog.Post', status=Post.DRAFT, content="test")
     post.publish()
     assert post.status == Post.PUBLISHED
 
 @freeze_time(dt.datetime(2030, 6, 1, 12), tz_offset=0)  # Replaces now()
 def test_publish_sets_published_to_current_datetime():
     """Create a new post, and ensure no published datetime is set"""
-    post = baker.make('blog.Post', published=None)
+    post = baker.make('blog.Post', published=None, content="test")
     post.publish()
 
     # Set the timezone to UTC (to match tz_offset=0)
@@ -55,9 +55,9 @@ def test_publish_sets_published_to_current_datetime():
 def test_get_authors_returns_users_who_have_authored_a_post(django_user_model):
     """Create a post authored by user"""
     # Create a user
-    author = baker.make(django_user_model)
+    author = baker.make(django_user_model,)
     # Create a post that is authored by the user
-    baker.make('blog.Post', author=author, _quantity=3)
+    baker.make('blog.Post', author=author, _quantity=3, content="test")
     # # Create another user – but this one won't have any posts
     # baker.make(django_user_model)
 
