@@ -64,4 +64,4 @@ jobs:
         with:
           app-name: 'mukto-site-ontariolearn'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_98C114390A6847958EDD7F7F1171BD10 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2CAD1BD8F6094AB9B1FD039FC688A8A4 }}
