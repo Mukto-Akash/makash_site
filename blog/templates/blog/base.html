@@ -1,0 +1,84 @@
+<!--blog/templates/blog/base.html-->
+
+{% load static %} <link rel="stylesheet" href="{% static 'blog/base.css' %}">
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>My Blog – {% block page_title %}An awesome blog{% endblock %}</title>
+</head>
+
+<body>
+  {% if messages %}
+  <div class="django-messages">
+    {% for message in messages %}
+    <div{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {# Make a wrapper around the content #}
+  <div class="wrapper">
+
+    <!-- The header -->
+    <header id="site-header">
+        <h1>My Blog</h1>
+        <p>A blog about awesomeness</p>
+    </header>
+    
+    
+
+    <!-- Top navigation -->
+    <nav id="top-nav">
+        <ul>
+          <li><a href="{% url "home" %}">Home</a></li>
+            <li><a href="{% url "about" %}">About</a></li>
+            <li><a href="{% url "post-list" %}">Posts</a></li>
+            <li><a href="{% url "topic-list" %}">Topics</a></li>
+            <li><a href="{% url "contest" %}">Photo contest</a></li>
+            <li><a href="{% url "contact" %}">Contact</a></li>
+        </ul>
+    </nav>
+
+    <img src="{% static 'blog/logo.png' %}" alt="Logo">
+
+    <main id="main-content">
+        <div>
+            {% block main %}
+            <!-- Content for the main block will be rendered here -->
+            {% endblock %}
+        </div>
+
+        <aside id="sidebar">
+            <section id="topic-list">
+              <!-- New for Assignment 4 -->
+                <h3>Top Topics</h3>
+                <ul>
+                  {% for topic in top_topics %}
+                    <li>
+                      <a href="{{ topic.get_absolute_url }}">{{ topic.name }} ({{ topic.total_posts}})</a></li>
+                  {% endfor %}
+                </ul>
+                <!-- ------------------ -->
+              </section>
+            <section id="author-list">
+              <h3>Authors</h3>
+              <ul>
+                {% for author in authors %}
+                  <li>{{ author.get_full_name }}</li>
+                {% endfor %}
+              </ul>
+            </section>
+        </aside>
+    </main>
+
+    <!-- The footer -->
+    <footer id="site-footer">
+      Copyright &copy; {% now 'Y' %} –
+      <a href="{% url "terms-and-conditions" %}">Terms & conditions</a>
+    </footer>
+  </div>
+</body>
+
+</html>

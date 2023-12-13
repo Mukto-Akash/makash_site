@@ -1,5 +1,5 @@
 """
-URL configuration for mukto_site project.
+URL configuration for OLRN_site project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.2/topics/http/urls/
@@ -15,8 +15,43 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
+from django.conf import settings
+from django.conf.urls.static import static
+
+from blog import views as vw
+# from . import views # Import the views module
 
 urlpatterns = [
+    #path('', views.index), # Add our index view to the URL patterns
     path('admin/', admin.site.urls),
-]
+    path('blog', vw.blog),
+    # path('', vw.home, name='home'), # Set root to home view
+    path('', vw.HomeView.as_view(), name='home'),
+    path('about/', vw.AboutView.as_view(), name='about'),
+    path('terms/', vw.terms_and_conditions, name='terms-and-conditions'),
+    path('posts/', vw.PostListView.as_view(), name='post-list'),
+    path(
+        'posts/<int:year>/<int:month>/<int:day>/<slug:slug>/',
+        vw.PostDetailView.as_view(),
+        name='post-detail',
+    ),
+    path(
+        'posts/<int:pk>/',
+        vw.PostDetailView.as_view(),
+        name='post-detail'
+    ),
+    path('topics/', vw.TopicListView.as_view(), name='topic-list'),
+    path('topics/<slug:slug>/', vw.TopicDetailView.as_view(), name='topic-detail'),
+    path('form-example/', vw.form_example, name='form-example'),
+    path(
+        'formview-example/',
+        vw.FormViewExample.as_view(),
+        name='formview-example'
+    ),
+    path('contact/', vw.ContactFormView.as_view(), name='contact'),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
+    # Assignment 5 --------------------------------------------
+    path('contest/', vw.PhotoFormView.as_view(), name='contest'),
+    # ---------------------------------------------------------
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
