@@ -99,7 +99,7 @@ DATABASES = {
         'NAME': 'postgres',
         'USER': 'ontariolearn', #or the username you picked when creating the Postgres admin
         'PASSWORD': 'DjangoRocks1!', # really bad idea!
-        'HOST': '<your server name from the Azure Postgres resource page>', #should end with postgres.database.azure.com
+        'HOST': 'mukto-site-ontariolearn.postgres.database.azure.com', #should end with postgres.database.azure.com
         'PORT': '5432',
     }
 }
